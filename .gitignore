@@ -57,3 +57,11 @@ env/**
 texts/**
 .idea/**
 # }}}
+
+# Local development installs {{{
+*.egg-info/
+# }}}
+
+# Text editor cruft {{{
+*.swp
+# }}}

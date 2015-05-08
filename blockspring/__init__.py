@@ -215,7 +215,7 @@ def decorate(func):
         parameters = tuple(request.params[arg] for arg in arguments)
         output = func(*parameters)
         response.addOutput('output', output)
-        response.end
+        response.end()
 
     return block
 

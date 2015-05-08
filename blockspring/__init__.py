@@ -209,11 +209,15 @@ def define(block):
 	block(request, response)
 
 def decorate(func):
+    """ Decorate any function into one readily parsed by blockspring. 
+    The arguments to the function will be looked for by name in request.params
+    TODO: respect default values in wrapped function.
+    """
     @functools.wraps(func)
     def block(request, response):
-        arguments = inspect.getargspec(func).args
-        parameters = tuple(request.params[arg] for arg in arguments)
-        output = func(*parameters)
+        arguments = inspect.getargspec(func).args #get a list of arguments accepted by wrapped
+        parameters = tuple(request.params[arg] for arg in arguments) 
+        output = func(*parameters) #unpack them and call them into func
         response.addOutput('output', output)
         response.end()
 

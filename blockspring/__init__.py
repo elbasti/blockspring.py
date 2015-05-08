@@ -6,6 +6,8 @@ from mimetypes import MimeTypes
 import base64
 import re
 import tempfile
+import inspect
+import functools
 
 try:
     from urlparse import urlparse
@@ -205,6 +207,17 @@ def define(block):
 
 	response = Response()
 	block(request, response)
+
+def decorate(func):
+    @functools.wraps(func)
+    def block(request, response):
+        arguments = inspect.getargspec(func).args
+        parameters = tuple(request.params[arg] for arg in arguments)
+        output = func(*parameters)
+        response.addOutput('output', output)
+        response.end
+
+    return block
 
 class Request:
 	def __init__(self):

@@ -63,5 +63,5 @@ texts/**
 # }}}
 
 # Text editor cruft {{{
-*.swp
+*.sw[po]
 # }}}
